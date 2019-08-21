@@ -14,9 +14,9 @@
     }
   ],
   "featuredCategories": {
-    "30": { "title": "Woman Sale"},
-    "31": { "title": "Man Sale"},
     "32": { "title": "Pants"},
-    "33": { "title": "Tees"}
+    "33": { "title": "Tees"},
+    "30": { "title": "Woman Sale"},
+    "31": { "title": "Man Sale"}
   }
 }
