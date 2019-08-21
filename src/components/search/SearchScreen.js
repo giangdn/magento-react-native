@@ -8,15 +8,17 @@ import {
   getSearchProducts,
   addFilterData,
   resetFilters,
-  setCurrentProduct
+  setCurrentProduct,
 } from '../../actions';
 import { ProductList, HeaderIcon } from '../common';
 import NavigationService from '../../navigation/NavigationService';
 import { NAVIGATION_SEARCH_PRODUCT_PATH } from '../../navigation/routes';
 
+const StrSearch = 'Tìm kiếm';
+
 class SearchScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Search',
+    title: StrSearch,
     headerBackTitle: ' ',
     headerRight: (<HeaderIcon changeGridValueFunction={navigation.getParam('changeGridValueFunction')} />),
   });
@@ -38,7 +40,7 @@ class SearchScreen extends Component {
   onRowPress = (product) => {
     this.props.setCurrentProduct({ product });
     NavigationService.navigate(NAVIGATION_SEARCH_PRODUCT_PATH, {
-      title: product.name
+      title: product.name,
     });
   }
 
@@ -46,7 +48,7 @@ class SearchScreen extends Component {
     const {
       canLoadMoreContent,
       loadingMore,
-      products
+      products,
     } = this.props;
     const { sortOrder, priceFilter } = this.props;
 
@@ -55,7 +57,7 @@ class SearchScreen extends Component {
     }
   };
 
-  updateSearch = input => {
+  updateSearch = (input) => {
     this.setState({ input }, () => {
       this.props.resetFilters();
       this.getSearchProducts(input, null, this.props.sortOrder, this.props.priceFilter);
@@ -68,11 +70,10 @@ class SearchScreen extends Component {
   };
 
   changeGridValueFunction = () => {
-		this.setState({ gridColumnsValue: !this.state.gridColumnsValue });
-	};
+    this.setState({ gridColumnsValue: !this.state.gridColumnsValue });
+  };
 
-  renderContent = () => {
-    return (
+  renderContent = () => (
       <ProductList
         products={this.props.products}
         navigation={this.props.navigation}
@@ -85,7 +86,6 @@ class SearchScreen extends Component {
         currencySymbol={this.props.currencySymbol}
       />
     );
-  };
 
   render() {
     const { searchInputStyle, containerStyle, searchStyle } = styles;
@@ -116,7 +116,7 @@ const styles = {
   searchInputStyle: {
     borderBottomWidth: 1,
     borderBottomColor: '#aaa',
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   containerStyle: {
     flex: 1,
@@ -137,7 +137,7 @@ const styles = {
     justifyContent: 'center',
   },
   notFoundText: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
 };
 
@@ -147,7 +147,9 @@ const mapStateToProps = ({ search, filters, magento }) => {
   const { default_display_currency_symbol: currencySymbol } = magento.currency;
   const canLoadMoreContent = products.length < totalCount;
 
-  return { products, totalCount, canLoadMoreContent, loadingMore, sortOrder, priceFilter, currencySymbol };
+  return {
+ products, totalCount, canLoadMoreContent, loadingMore, sortOrder, priceFilter, currencySymbol 
+};
 };
 
 

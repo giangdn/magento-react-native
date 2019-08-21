@@ -110,25 +110,25 @@ const MainAppNavigator = createBottomTabNavigator(
     [NAVIGATION_HOME_STACK_PATH]: {
       screen: HomeStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-home" type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="md-home" size={30} type="ionicon" color={tintColor} />,
       }),
     },
     [NAVIGATION_SEARCH_SCREEN_PATH]: {
       screen: SearchStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-search" type="ionicon" color={tintColor} />,
-      }),
-    },
-    [NAVIGATION_AUTH_STACK_PATH]: {
-      screen: AccountSwitch,
-      navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-person" type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="md-search" size={30} type="ionicon" color={tintColor} />,
       }),
     },
     [NAVIGATION_CART_PATH]: {
       screen: CartStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <CartBadge color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <CartBadge size={32} color={tintColor} />,
+      }),
+    },
+    [NAVIGATION_AUTH_STACK_PATH]: {
+      screen: AccountSwitch,
+      navigationOptions: () => ({
+        tabBarIcon: ({ tintColor }) => <Icon name="md-person" size={30} type="ionicon" color={tintColor} />,
       }),
     },
   },
@@ -136,6 +136,7 @@ const MainAppNavigator = createBottomTabNavigator(
     // initialRouteName: NAVIGATION_AUTH_STACK_PATH,
     tabBarOptions: {
       showLabel: false,
+      activeTintColor: '#006900',
     },
   },
 );
@@ -159,7 +160,7 @@ export const Navigator = createDrawerNavigator(
   {
     contentComponent: DrawerScreen,
     getCustomActionCreators: (route, stateKey) => ({
-        toggleFilterDrawer: () => DrawerActions.toggleDrawer({ key: stateKey }),
-      }),
+      toggleFilterDrawer: () => DrawerActions.toggleDrawer({ key: stateKey }),
+    }),
   },
 );

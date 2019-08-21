@@ -14,19 +14,23 @@ import { Spinner, Button } from '../common';
 import { auth } from '../../actions/CustomerAuthActions';
 import {
   NAVIGATION_SIGNIN_PATH,
-  NAVIGATION_RESET_PASSWORD_PATH
+  NAVIGATION_RESET_PASSWORD_PATH,
 } from '../../navigation/routes';
+
+const StrLogin = 'Đăng nhập';
+const StrSignin = 'Đăng ký';
+const StrForget = 'Quên mật khẩu?';
 
 class Login extends Component {
   static navigationOptions = {
-    title: 'Login'
+    title: StrLogin,
   };
 
   componentWillMount() {
     this.setState({
       email: '',
       password: '',
-      number: ''
+      number: '',
     });
   }
 
@@ -55,16 +59,16 @@ class Login extends Component {
     return (
       <View>
         <Button onPress={this.onLoginPress}>
-          LOG IN
+          {StrLogin}
         </Button>
         <Button
           onPress={this.onSigninPress}
           style={styles.buttonMargin}
         >
-          SIGN IN
+          {StrSignin}
         </Button>
         <TouchableOpacity onPress={this.passwordForget} style={styles.link}>
-          <Text style={styles.linkTitle}>Forget password?</Text>
+          <Text style={styles.linkTitle}>{StrForget}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -109,7 +113,7 @@ class Login extends Component {
             value={this.state.password}
             onChangeText={value => this.setState({ password: value })}
             onSubmitEditing={this.onLoginPress}
-            ref={input => { this.passwordInput = input; }}
+            ref={(input) => { this.passwordInput = input; }}
           />
         </View>
         {this.renderButtons()}
@@ -124,12 +128,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   input: {
     color: '#000',
     paddingRight: 5,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   inputContainer: {
     borderWidth: 1,
@@ -137,20 +141,20 @@ const styles = StyleSheet.create({
     width: Sizes.WINDOW_WIDTH * 0.7,
     height: 40,
     justifyContent: 'center',
-    marginBottom: 20
+    marginBottom: 20,
   },
   offsetTop: {
-    marginTop: Sizes.WINDOW_HEIGHT * 0.2
+    marginTop: Sizes.WINDOW_HEIGHT * 0.2,
   },
   buttonMargin: {
-    marginTop: 20
+    marginTop: 20,
   },
   error: {
     color: 'red',
     width: Sizes.WINDOW_WIDTH * 0.85,
     textAlign: 'center',
     fontSize: 14,
-    marginTop: 20
+    marginTop: 20,
   },
   success: {
     width: Sizes.WINDOW_WIDTH * 0.85,
@@ -159,16 +163,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     backgroundColor: '#E5EFE5',
     padding: 5,
-    marginTop: 20
+    marginTop: 20,
   },
   link: {
-    marginTop: 20
+    marginTop: 20,
   },
   linkTitle: {
     color: '#797979',
     textAlign: 'center',
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 const mapStateToProps = ({ customerAuth }) => {

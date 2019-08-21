@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   FlatList,
   RefreshControl,
+  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { cartItemProduct, getCart } from '../../actions';
@@ -19,9 +20,13 @@ import {
 import { Button } from '../common';
 import Sizes from '../../constants/Sizes';
 
+const EmptyCart = require('../../../resources/noapps.png');
+
+const StrCart = 'Giỏ mua hàng';
+
 class Cart extends Component {
   static navigationOptions = {
-    title: 'Cart',
+    title: StrCart,
     headerBackTitle: ' ',
   };
 
@@ -55,7 +60,7 @@ class Cart extends Component {
 
   onPressAddToCheckout = () => {
     NavigationService.navigate(NAVIGATION_CHECKOUT_PATH, {
-      title: 'Cart',
+      title: StrCart,
     });
   };
 
@@ -114,14 +119,15 @@ class Cart extends Component {
 
     return (
       <View style={containerStyle}>
+        <Image source={EmptyCart} />
         <Text style={totals}>
-          Your cart is empty
+          Chưa có sản phẩm nào trong giỏ mua hàng
         </Text>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)}
         >
           <Text style={buttonTextStyle}>
-            Continue Shopping
+            Tiếp tục mua sắm
           </Text>
         </TouchableOpacity>
       </View>
@@ -186,13 +192,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
+    padding: 15,
   },
   content: {
     flex: 1,
   },
   totals: {
-    fontSize: 20,
-    paddingTop: 7,
+    paddingTop: 15,
+    color: '#999999',
+    fontSize: 16,
   },
   buttonTextStyle: {
     padding: 14,

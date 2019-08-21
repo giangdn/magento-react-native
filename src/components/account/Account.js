@@ -5,14 +5,47 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { Button } from '../common';
 import { logout, currentCustomer } from '../../actions';
 import { NAVIGATION_ORDERS_PATH, NAVIGATION_ADDRESS_SCREEN_PATH } from '../../navigation/routes';
 
+const StrAccont = 'Tài khoản của tôi';
+const avatar = require('../../../resources/avatar.png');
+
+const ListItems = [
+  {
+    label: 'Thành viên thân thiết',
+  },
+  {
+    label: 'Đơn hàng của bạn',
+  },
+  {
+    label: 'Vouchers của bạn',
+  },
+  {
+    label: 'Danh sách địa chỉ',
+  },
+  {
+    label: 'Đăng ký nhận bản tin',
+  },
+  {
+    label: 'Trung tâm trợ giúp',
+  },
+  {
+    label: 'Về Drinkies',
+  },
+  {
+    label: 'Đăng xuất',
+  },
+];
+
 class Account extends Component {
   static navigationOptions = {
-    title: 'Account',
+    title: StrAccont,
   };
 
   componentDidMount() {
@@ -32,14 +65,59 @@ class Account extends Component {
 
     const { email, firstname, lastname } = this.props.customer;
     return (
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Contact Information</Text>
-        <Text style={styles.text}>
-          {firstname}
-          {' '}
-          {lastname}
-        </Text>
-        <Text style={styles.text}>{email}</Text>
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', paddingBottom: 20 }}>
+          <View style={{
+            width: 60, height: 60, backgroundColor: '#006900', borderRadius: 6, alignItems: 'center', justifyContent: 'center',
+          }}
+          >
+            <Text style={{
+              color: 'white', fontSize: 30, fontWeight: 'bold',
+            }}
+            >
+              {firstname.charAt(0)}
+            </Text>
+          </View>
+          <View style={{ flex: 1, padding: 10 }}>
+            <Text style={{ ...styles.text, fontWeight: 'bold' }}>{`${lastname} ${firstname}`}</Text>
+            <Text style={styles.text}>{email}</Text>
+          </View>
+        </View>
+        <ScrollView style={{ flex: 1, paddingTop: 10 }}>
+          <TouchableOpacity style={{ ...styles.listItem, borderTopWidth: 0.5, borderTopColor: '#eeeeee' }}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[0].label}</Text>
+            <Icon name="keyboard-arrow-right" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem} onPress={this.openOrders}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[1].label}</Text>
+            <Icon name="keyboard-arrow-right" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[2].label}</Text>
+            <Icon name="keyboard-arrow-right" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem} onPress={this.openAddAddress}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[3].label}</Text>
+            <Icon name="keyboard-arrow-right" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[4].label}</Text>
+            <Icon name="checksquareo" type="antdesign" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[5].label}</Text>
+            <Icon name="phone-square" type="font-awesome" color="#999999" />
+            <View style={{ marginLeft: 10 }}><Icon name="mail" type="antdesign" color="#999999" /></View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.listItem}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[6].label}</Text>
+            <Icon name="keyboard-arrow-right" color="#999999" />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ ...styles.listItem, borderBottomWidth: 0 }} onPress={this.onLogoutPress}>
+            <Text style={{ ...styles.text, flex: 1 }}>{ListItems[7].label}</Text>
+            <Icon name="power-settings-new" color="#999999" />
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     );
   }
@@ -56,15 +134,6 @@ class Account extends Component {
     return (
       <View style={styles.container}>
         {this.renderCustomerData()}
-        <Button onPress={this.onLogoutPress}>
-          LOG OUT
-        </Button>
-        <Button onPress={this.openOrders} style={styles.buttonMargin}>
-          My Orders
-        </Button>
-        <Button onPress={this.openAddAddress} style={styles.buttonMargin}>
-          My Address
-        </Button>
       </View>
     );
   }
@@ -74,8 +143,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    paddingTop: 20,
+    padding: 10,
   },
   activity: {
     padding: 10,
@@ -87,7 +155,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    textAlign: 'center',
+  },
+  listItem: {
+    flexDirection: 'row',
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#dddddd',
   },
   textContainer: {
     marginBottom: 15,

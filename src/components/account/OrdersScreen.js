@@ -7,6 +7,7 @@ import {
   View,
   FlatList,
   RefreshControl,
+  Image,
 } from 'react-native';
 import {
   getOrdersForCustomer,
@@ -16,11 +17,13 @@ import OrderListItem from './OrderListItem';
 
 import { NAVIGATION_HOME_SCREEN_PATH } from '../../navigation/routes';
 
+const StrOrder = 'Đơn hàng của bạn';
+const EmptyOrder = require('../../../resources/docs.png');
 
 class OrdersScreen extends Component {
   static navigationOptions = () => ({
-    title: 'Orders',
-    headerBackTitle: ' '
+    title: StrOrder,
+    headerBackTitle: ' ',
   });
 
   componentDidMount() {
@@ -31,24 +34,21 @@ class OrdersScreen extends Component {
     this.props.getOrdersForCustomer(this.props.customerId, true);
   };
 
-  renderItem = (orderItem) => {
-    return (
-      <OrderListItem item={orderItem.item} currencySymbol={this.props.currencySymbol}/>
-    );
-  };
+  renderItem = orderItem => (
+    <OrderListItem item={orderItem.item} currencySymbol={this.props.currencySymbol} />
+  );
 
   renderOrderList = () => {
-    const data = this.props.orders.sort((b, a) =>
-      moment(a.created_at).diff(b.created_at));
+    const data = this.props.orders.sort((b, a) => moment(a.created_at).diff(b.created_at));
 
     return (
       <FlatList
-        refreshControl={
+        refreshControl={(
           <RefreshControl
             refreshing={this.props.refreshing}
             onRefresh={this.onRefresh}
           />
-        }
+        )}
         data={data}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => index.toString()}
@@ -61,20 +61,21 @@ class OrdersScreen extends Component {
     const {
       emptyListContainerStyle,
       textStyle,
-      buttonTextStyle
+      buttonTextStyle,
     } = styles;
 
 
     return (
       <View style={emptyListContainerStyle}>
-        <Text style={textStyle}>
-          Oops, there is no orders yet
+        <Image source={EmptyOrder} style={{ width: 98, height: 116, marginBottom: 20 }} />
+        <Text style={{ color: '#999', fontSize: 16 }}>
+          Hiện tại không có đơn hàng nào
         </Text>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)}
         >
           <Text style={buttonTextStyle}>
-            Continue Shopping
+            Tiếp tục mua sắm
           </Text>
         </TouchableOpacity>
       </View>
@@ -103,7 +104,8 @@ const styles = {
   emptyListContainerStyle: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
   textStyle: {
     fontSize: 20,
@@ -131,5 +133,5 @@ const mapStateToProps = ({ account, magento }) => {
 
 export default connect(mapStateToProps, {
   getOrdersForCustomer,
-  setCurrentProduct
+  setCurrentProduct,
 })(OrdersScreen);
