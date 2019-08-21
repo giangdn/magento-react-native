@@ -16,7 +16,7 @@ class App extends Component {
       <Provider store={store}>
         <PersistGate loading={<Spinner />} persistor={persistor}>
           <Navigator
-            ref={navigatorRef => {
+            ref={(navigatorRef) => {
               NavigationService.setTopLevelNavigator(navigatorRef);
             }}
           />

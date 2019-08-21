@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import {
+  View, StyleSheet, Image, Text,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import { magento } from '../../magento';
 import Sizes from '../../constants/Sizes';
 
-const HomeSlider = props => {
-  const renderMediaItems = () => {
-    return props.slider.map((slide, index) => {
-      return (
-        <View key={index} style={styles.slide}>
-          <Image
-            style={styles.imageStyle}
-            resizeMode="cover"
-            source={{ uri: magento.getMediaUrl() + slide.image }}
-          />
-          <Text style={styles.slideTitle}>{slide.title}</Text>
-        </View>
-      );
-    });
-  };
+const HomeSlider = (props) => {
+  const renderMediaItems = () => props.slider.map((slide, index) => (
+    // eslint-disable-next-line react/no-array-index-key
+    <View key={index} style={styles.slide}>
+      <Image
+        style={styles.imageStyle}
+        resizeMode="cover"
+        source={{ uri: magento.getMediaUrl() + slide.image }}
+      />
+      <Text style={styles.slideTitle}>{slide.title}</Text>
+    </View>
+  ));
 
   return (
     <View style={[styles.imageContainer, props.style]}>
