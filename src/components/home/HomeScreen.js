@@ -93,6 +93,12 @@ class HomeScreen extends Component {
           />
         )}
       >
+        <Text style={{
+          padding: 15, fontSize: 22, fontWeight: 'bold', color: '#006900',
+        }}
+        >
+        Suggestions for you
+        </Text>
         <HomeSlider slider={this.props.slider} />
         {this.renderFeatured()}
       </ScrollView>

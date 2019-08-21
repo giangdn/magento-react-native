@@ -1,21 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, FlatList, Text } from 'react-native';
+import {
+  View, StyleSheet, FlatList, Text,
+  TouchableOpacity,
+} from 'react-native';
 import Sizes from '../../constants/Sizes';
 import FeaturedProductItem from './FeaturedProductItem';
 
 
-const FeaturedProducts = props => {
+const FeaturedProducts = (props) => {
   const keyExtractor = item => item.id.toString();
 
   return (
     <View style={[styles.container, props.style]}>
-      <Text style={styles.title}>{props.title}</Text>
+      <View style={{
+        padding: 15, paddingBottom: 0, flexDirection: 'row',
+      }}
+      >
+        <Text style={styles.title}>{props.title}</Text>
+        <TouchableOpacity style={{ justifyContent: 'center' }}><Text>xem tất cả</Text></TouchableOpacity>
+      </View>
       <FlatList
-        horizontal
         data={props.products.items}
+        style={{ paddingLeft: 5, paddingRight: 5 }}
+        numColumns={2}
         keyExtractor={keyExtractor}
-        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <FeaturedProductItem {...item} currencySymbol={props.currencySymbol} onPress={props.onPress} />}
       />
     </View>
@@ -37,12 +46,14 @@ FeaturedProducts.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    height: Sizes.WINDOW_HEIGHT * 0.3,
     paddingTop: 10,
   },
   title: {
-    fontSize: 18,
-    textAlign: 'center',
+    fontSize: 22,
+    opacity: 0.8,
+    fontWeight: 'bold',
+    color: '#006900',
+    flex: 1,
   },
 });
 

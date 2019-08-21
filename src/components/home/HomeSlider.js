@@ -45,7 +45,9 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     height: Sizes.WINDOW_HEIGHT * 0.3,
-    width: Sizes.WINDOW_WIDTH,
+    width: Sizes.WINDOW_WIDTH - 30,
+    borderRadius: 6,
+    overflow: 'hidden',
     top: 0,
   },
   slide: {

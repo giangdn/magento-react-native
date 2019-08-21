@@ -46,7 +46,7 @@ FeaturedProductItem.defaultProps = {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    width: Sizes.WINDOW_WIDTH / 2,
+    width: (Sizes.WINDOW_WIDTH - 10) / 2,
   },
   containerStyle: {
     flexDirection: 'column',
