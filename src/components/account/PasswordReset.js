@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Spinner } from '../common';
@@ -13,12 +13,12 @@ import { initiatePasswordReset } from '../../actions';
 
 class PasswordReset extends Component {
   static navigationOptions = {
-    title: 'Reset Password'
+    title: 'Reset Password',
   };
 
   componentWillMount() {
     this.setState({
-      email: ''
+      email: '',
     });
   }
 
@@ -28,40 +28,36 @@ class PasswordReset extends Component {
 
   renderButtons() {
     if (this.props.loading) {
-      return <Spinner style={{ marginTop: 30 }} />;
+      return <View style={styles.inputWrapper}><Spinner style={{ margin: 20 }} /></View>;
     }
 
     return (
-      <TouchableOpacity onPress={this.onResetPress} style={buttonStyles.button}>
-        <Text style={buttonStyles.title}>RESET MY PASSWORD</Text>
-      </TouchableOpacity>
+      <View style={styles.inputWrapper}>
+        <TouchableOpacity onPress={this.onResetPress} style={styles.btnLogin}>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Reset my Password</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.content}>
-          <Text style={styles.contentTitle1}>PASSWORD RECOVERY</Text>
-          <Text style={styles.contentTitle2}>
-            Please enter your email address below to receive a password reset
-            link
-          </Text>
-          <View style={[inputStyles.container, styles.emailOffset]}>
-            <TextInput
-              autoCapitalize="none"
-              underlineColorAndroid="transparent"
-              keyboardType="email-address"
-              placeholder="Email"
-              autoCorrect={false}
-              style={inputStyles.input}
-              value={this.state.email}
-              onSubmitEditing={this.onResetPress}
-              onChangeText={email => this.setState({ email })}
-            />
-          </View>
-          {this.renderButtons()}
-        </View>
+        <Text style={{ color: 'gray', marginBottom: 20, marginTop: 20 }}>
+            Please enter your email address below to receive a password reset link
+        </Text>
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          keyboardType="email-address"
+          placeholder="Email"
+          autoCorrect={false}
+          style={styles.input}
+          value={this.state.email}
+          onSubmitEditing={this.onResetPress}
+          onChangeText={email => this.setState({ email })}
+        />
+        {this.renderButtons()}
       </View>
     );
   }
@@ -71,26 +67,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 26,
   },
-  content: {
-    width: 230,
-    marginTop: 55,
-    alignItems: 'center'
+  inputWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    alignSelf: 'stretch',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
-  contentTitle1: {
-    fontSize: 12,
-    fontWeight: '700',
-    marginBottom: 13
+  input: {
+    padding: 15,
+    borderRadius: 6,
+    backgroundColor: '#f4f6f6',
+    alignSelf: 'stretch',
+    marginBottom: 15,
   },
-  contentTitle2: {
-    fontSize: 12,
-    textAlign: 'center'
+  btnLogin: {
+    backgroundColor: '#59b58d',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    alignItems: 'center',
   },
-  emailOffset: {
-    marginTop: 18,
-    marginBottom: 15
-  }
 });
 
 const mapStateToProps = ({ customerAuth }) => {
@@ -100,5 +100,5 @@ const mapStateToProps = ({ customerAuth }) => {
 };
 
 export default connect(mapStateToProps, {
-  initiatePasswordReset
+  initiatePasswordReset,
 })(PasswordReset);

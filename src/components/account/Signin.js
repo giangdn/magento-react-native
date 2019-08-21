@@ -4,7 +4,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  Text
+  Text,
 } from 'react-native';
 import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
@@ -14,7 +14,7 @@ import { signIn } from '../../actions';
 
 class Signin extends Component {
   static navigationOptions = {
-    title: 'Sign In'
+    title: 'Sign Up',
   };
 
   componentWillMount() {
@@ -23,12 +23,14 @@ class Signin extends Component {
       lastname: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     });
   }
 
   onCreateAccountPress = () => {
-    const { email, password, firstname, lastname, confirmPassword } = this.state;
+    const {
+      email, password, firstname, lastname, confirmPassword,
+    } = this.state;
     // TODO: add password check
 
     const customer = {
@@ -37,7 +39,7 @@ class Signin extends Component {
         firstname,
         lastname,
       },
-      password
+      password,
     };
 
     this.props.signIn(customer);
@@ -45,13 +47,13 @@ class Signin extends Component {
 
   renderButtons() {
     if (this.props.loading) {
-      return <Spinner style={{ marginTop: 30 }} />;
+      return <View style={styles.inputWrapper}><Spinner style={{ margin: 20 }} /></View>;
     }
 
     return (
-      <View>
-        <TouchableOpacity onPress={this.onCreateAccountPress} style={styles.button}>
-          <Text style={styles.buttonTitle}>CREATE ACCOUNT</Text>
+      <View style={styles.inputWrapper}>
+        <TouchableOpacity onPress={this.onCreateAccountPress} style={styles.btnLogin}>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Create an Account</Text>
         </TouchableOpacity>
       </View>
     );
@@ -71,65 +73,67 @@ class Signin extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.inputContainer, styles.offsetTop]}>
-          <TextInput
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            placeholder="Firstname"
-            autoCorrect={false}
-            returnKeyType="next"
-            style={styles.input}
-            value={this.state.firstname}
-            onChangeText={value => this.setState({ firstname: value })}
-            onSubmitEditing={() => { this.lastnameInput.focus(); }}
-          />
-        </View>
-        <View style={[styles.inputContainer]}>
-          <TextInput
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            placeholder="Lastname"
-            autoCorrect={false}
-            returnKeyType="next"
-            style={styles.input}
-            value={this.state.lastname}
-            onChangeText={value => this.setState({ lastname: value })}
-            ref={input => { this.lastnameInput = input; }}
-            onSubmitEditing={() => { this.emailInput.focus(); }}
-          />
-        </View>
-        <View style={[styles.inputContainer]}>
-          <TextInput
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            placeholder="Email"
-            keyboardType="email-address"
-            returnKeyType="next"
-            autoCorrect={false}
-            style={styles.input}
-            value={this.state.email}
-            onChangeText={value => this.setState({ email: value })}
-            ref={input => { this.emailInput = input; }}
-            onSubmitEditing={() => { this.passwordInput.focus(); }}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            autoCapitalize="none"
-            underlineColorAndroid="transparent"
-            secureTextEntry
-            placeholder="Password"
-            autoCorrect={false}
-            style={styles.input}
-            value={this.state.password}
-            onChangeText={value => this.setState({ password: value })}
-            ref={input => { this.passwordInput = input; }}
-            onSubmitEditing={this.onCreateAccountPress}
-          />
-        </View>
-        {this.renderButtons()}
         {this.renderMessages()}
-        <View />
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          placeholder="Firstname"
+          autoCorrect={false}
+          returnKeyType="next"
+          style={styles.input}
+          value={this.state.firstname}
+          onChangeText={value => this.setState({ firstname: value })}
+          onSubmitEditing={() => { this.lastnameInput.focus(); }}
+        />
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          placeholder="Lastname"
+          autoCorrect={false}
+          returnKeyType="next"
+          style={styles.input}
+          value={this.state.lastname}
+          onChangeText={value => this.setState({ lastname: value })}
+          ref={(input) => { this.lastnameInput = input; }}
+          onSubmitEditing={() => { this.emailInput.focus(); }}
+        />
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          placeholder="Email"
+          keyboardType="email-address"
+          returnKeyType="next"
+          autoCorrect={false}
+          style={styles.input}
+          value={this.state.email}
+          onChangeText={value => this.setState({ email: value })}
+          ref={(input) => { this.emailInput = input; }}
+          onSubmitEditing={() => { this.passwordInput.focus(); }}
+        />
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          secureTextEntry
+          placeholder="Password"
+          autoCorrect={false}
+          style={styles.input}
+          value={this.state.password}
+          onChangeText={value => this.setState({ password: value })}
+          ref={(input) => { this.passwordInput = input; }}
+          onSubmitEditing={this.onCreateAccountPress}
+        />
+        {this.renderButtons()}
+        <View style={{ padding: 10, textAlign: 'center' }}>
+          <Text style={{ color: 'gray', textAlign: 'center' }}>
+            By signing up, you agree to our
+            {' '}
+            <Text style={{ fontWeight: 'bold', color: '#59b58d' }}>Terms</Text>
+            {' '}
+            and
+            {' '}
+            <Text style={{ fontWeight: 'bold', color: '#59b58d' }}>Privacy</Text>
+          </Text>
+        </View>
       </View>
     );
   }
@@ -139,51 +143,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 26,
+  },
+  inputWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    alignSelf: 'stretch',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   input: {
-    color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5
+    padding: 15,
+    borderRadius: 6,
+    backgroundColor: '#f4f6f6',
+    alignSelf: 'stretch',
+    marginBottom: 15,
   },
-  inputContainer: {
-    borderWidth: 1,
-    borderColor: Colors.GRAY,
-    width: Sizes.WINDOW_WIDTH * 0.7,
-    height: 40,
-    justifyContent: 'center',
-    marginBottom: 20
-  },
-  offsetTop: {
-    marginTop: Sizes.WINDOW_HEIGHT * 0.1
-  },
-  button: {
-    borderWidth: 1,
-    backgroundColor: Colors.GRAY,
-    borderColor: Colors.GRAY,
-    width: Sizes.WINDOW_WIDTH * 0.7,
-    height: 40,
-    justifyContent: 'center'
-  },
-  buttonTitle: {
-    color: 'white',
-    alignSelf: 'center'
+  btnLogin: {
+    backgroundColor: '#59b58d',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    alignItems: 'center',
   },
   error: {
-    color: 'red',
-    width: Sizes.WINDOW_WIDTH * 0.85,
+    color: '#cd0930',
     textAlign: 'center',
-    fontSize: 14,
-    marginTop: 20
+    marginBottom: 20,
   },
   success: {
-    width: Sizes.WINDOW_WIDTH * 0.85,
     color: '#01640B',
     textAlign: 'center',
-    fontSize: 14,
     backgroundColor: '#E5EFE5',
-    padding: 5,
-    marginTop: 20
+    marginBottom: 20,
   },
 });
 

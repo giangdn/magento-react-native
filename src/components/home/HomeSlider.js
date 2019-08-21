@@ -22,7 +22,20 @@ const HomeSlider = (props) => {
 
   return (
     <View style={[styles.imageContainer, props.style]}>
-      <Swiper showsPagination={false} pagingEnabled autoplay={false}>
+      <Swiper
+        showsPagination
+        pagingEnabled
+        autoplay
+        paginationStyle={{
+          bottom: -25,
+        }}
+        activeDot={(
+          <View style={{
+            backgroundColor: '#59b58d', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,
+          }}
+          />
+        )}
+      >
         {renderMediaItems()}
       </Swiper>
     </View>

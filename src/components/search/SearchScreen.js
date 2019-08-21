@@ -14,7 +14,7 @@ import { ProductList, HeaderIcon } from '../common';
 import NavigationService from '../../navigation/NavigationService';
 import { NAVIGATION_SEARCH_PRODUCT_PATH } from '../../navigation/routes';
 
-const StrSearch = 'Tìm kiếm';
+const StrSearch = 'Search';
 
 class SearchScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -74,7 +74,7 @@ class SearchScreen extends Component {
   };
 
   renderContent = () => (
-      <ProductList
+    <ProductList
         products={this.props.products}
         navigation={this.props.navigation}
         onEndReached={this.onEndReached}
@@ -85,7 +85,7 @@ class SearchScreen extends Component {
         performSort={this.performSort}
         currencySymbol={this.props.currencySymbol}
       />
-    );
+  );
 
   render() {
     const { searchInputStyle, containerStyle, searchStyle } = styles;
@@ -148,8 +148,8 @@ const mapStateToProps = ({ search, filters, magento }) => {
   const canLoadMoreContent = products.length < totalCount;
 
   return {
- products, totalCount, canLoadMoreContent, loadingMore, sortOrder, priceFilter, currencySymbol 
-};
+    products, totalCount, canLoadMoreContent, loadingMore, sortOrder, priceFilter, currencySymbol,
+  };
 };
 
 

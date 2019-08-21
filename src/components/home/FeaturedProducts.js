@@ -18,7 +18,9 @@ const FeaturedProducts = (props) => {
       }}
       >
         <Text style={styles.title}>{props.title}</Text>
-        <TouchableOpacity style={{ justifyContent: 'center' }}><Text>xem tất cả</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.link}>
+          <Text style={styles.linkText}>View all...</Text>
+        </TouchableOpacity>
       </View>
       <FlatList
         data={props.products.items}
@@ -48,11 +50,16 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
   },
+  link: {
+    justifyContent: 'center',
+  },
+  linkText: {
+    color: '#59b58d',
+  },
   title: {
     fontSize: 22,
-    opacity: 0.8,
     fontWeight: 'bold',
-    color: '#006900',
+    color: '#455154',
     flex: 1,
   },
 });

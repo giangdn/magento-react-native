@@ -22,7 +22,7 @@ import Sizes from '../../constants/Sizes';
 
 const EmptyCart = require('../../../resources/noapps.png');
 
-const StrCart = 'Giỏ mua hàng';
+const StrCart = 'Shopping Cart';
 
 class Cart extends Component {
   static navigationOptions = {
@@ -121,13 +121,13 @@ class Cart extends Component {
       <View style={containerStyle}>
         <Image source={EmptyCart} />
         <Text style={totals}>
-          Chưa có sản phẩm nào trong giỏ mua hàng
+          your shopping cart is empty now...
         </Text>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)}
         >
           <Text style={buttonTextStyle}>
-            Tiếp tục mua sắm
+            Continue Shopping
           </Text>
         </TouchableOpacity>
       </View>
@@ -205,9 +205,9 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     padding: 14,
-    fontSize: 20,
+    fontSize: 16,
     top: 0,
-    color: '#3478f6',
+    color: '#59b58d',
   },
   footer: {
     padding: 14,

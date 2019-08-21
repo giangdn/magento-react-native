@@ -63,10 +63,10 @@ const HomeStack = createStackNavigator(
   {
     initialRouteName: NAVIGATION_HOME_SCREEN_PATH,
     navigationOptions: {
-      headerStyle: {
-        // backgroundColor: '#f4511e',
-      },
-      // headerTintColor: '#fff',
+      // headerStyle: {
+      //   backgroundColor: '#006900',
+      // },
+      headerTintColor: '#59b58d',
       headerTitleStyle: {
         fontWeight: '500',
         fontSize: 18,
@@ -80,6 +80,15 @@ const AuthStack = createStackNavigator({
   [NAVIGATION_LOGIN_PATH]: Login,
   [NAVIGATION_SIGNIN_PATH]: Signin,
   [NAVIGATION_RESET_PASSWORD_PATH]: PasswordReset,
+}, {
+  navigationOptions: {
+    headerTintColor: '#59b58d',
+    headerTitleStyle: {
+      fontWeight: '500',
+      fontSize: 18,
+      alignSelf: 'center',
+    },
+  },
 });
 
 const AccountStack = createStackNavigator({
@@ -87,6 +96,15 @@ const AccountStack = createStackNavigator({
   [NAVIGATION_ORDERS_PATH]: OrdersScreen,
   [NAVIGATION_ORDER_PATH]: OrderScreen,
   [NAVIGATION_ADDRESS_SCREEN_PATH]: AddressScreen,
+}, {
+  navigationOptions: {
+    headerTintColor: '#59b58d',
+    headerTitleStyle: {
+      fontWeight: '500',
+      fontSize: 18,
+      alignSelf: 'center',
+    },
+  },
 });
 
 const AccountSwitch = createSwitchNavigator({
@@ -98,11 +116,30 @@ const AccountSwitch = createSwitchNavigator({
 const SearchStack = createStackNavigator({
   [NAVIGATION_SEARCH_SCREEN_PATH]: SearchScreen,
   [NAVIGATION_SEARCH_PRODUCT_PATH]: Product,
+}, {
+  navigationOptions: {
+    headerTintColor: '#59b58d',
+    headerTitleStyle: {
+      fontWeight: '500',
+      fontSize: 18,
+      alignSelf: 'center',
+    },
+  },
 });
 
 const CartStack = createStackNavigator({
   [NAVIGATION_CART_PATH]: Cart,
   [NAVIGATION_CHECKOUT_PATH]: Checkout,
+},
+{
+  navigationOptions: {
+    headerTintColor: '#59b58d',
+    headerTitleStyle: {
+      fontWeight: '500',
+      fontSize: 18,
+      alignSelf: 'center',
+    },
+  },
 });
 
 const MainAppNavigator = createBottomTabNavigator(
@@ -110,33 +147,36 @@ const MainAppNavigator = createBottomTabNavigator(
     [NAVIGATION_HOME_STACK_PATH]: {
       screen: HomeStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-home" size={30} type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="home" type="octicon" color={tintColor} />,
+        tabBarLabel: 'Home',
       }),
     },
     [NAVIGATION_SEARCH_SCREEN_PATH]: {
       screen: SearchStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-search" size={30} type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="search" type="feather" color={tintColor} />,
       }),
     },
     [NAVIGATION_CART_PATH]: {
       screen: CartStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <CartBadge size={32} color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="shopping-cart" type="feather" color={tintColor} />,
+        tabBarLabel: 'My Cart',
       }),
     },
     [NAVIGATION_AUTH_STACK_PATH]: {
       screen: AccountSwitch,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="md-person" size={30} type="ionicon" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <Icon name="user" type="feather" color={tintColor} />,
+        tabBarLabel: 'Account',
       }),
     },
   },
   {
     // initialRouteName: NAVIGATION_AUTH_STACK_PATH,
     tabBarOptions: {
-      showLabel: false,
-      activeTintColor: '#006900',
+      showLabel: true,
+      activeTintColor: '#59b58d',
     },
   },
 );

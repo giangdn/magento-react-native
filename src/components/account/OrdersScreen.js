@@ -17,7 +17,7 @@ import OrderListItem from './OrderListItem';
 
 import { NAVIGATION_HOME_SCREEN_PATH } from '../../navigation/routes';
 
-const StrOrder = 'Đơn hàng của bạn';
+const StrOrder = 'Your Bookings';
 const EmptyOrder = require('../../../resources/docs.png');
 
 class OrdersScreen extends Component {
@@ -69,13 +69,13 @@ class OrdersScreen extends Component {
       <View style={emptyListContainerStyle}>
         <Image source={EmptyOrder} style={{ width: 98, height: 116, marginBottom: 20 }} />
         <Text style={{ color: '#999', fontSize: 16 }}>
-          Hiện tại không có đơn hàng nào
+          there is no booking now...
         </Text>
         <TouchableOpacity
           onPress={() => navigate(NAVIGATION_HOME_SCREEN_PATH)}
         >
           <Text style={buttonTextStyle}>
-            Tiếp tục mua sắm
+            Continue shopping
           </Text>
         </TouchableOpacity>
       </View>
@@ -113,9 +113,9 @@ const styles = {
   },
   buttonTextStyle: {
     padding: 14,
-    fontSize: 20,
+    fontSize: 16,
     top: 0,
-    color: '#3478f6',
+    color: '#59b58d',
   },
 };
 

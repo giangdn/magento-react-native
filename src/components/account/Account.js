@@ -13,33 +13,33 @@ import { Button } from '../common';
 import { logout, currentCustomer } from '../../actions';
 import { NAVIGATION_ORDERS_PATH, NAVIGATION_ADDRESS_SCREEN_PATH } from '../../navigation/routes';
 
-const StrAccont = 'Tài khoản của tôi';
+const StrAccont = 'My Account';
 const avatar = require('../../../resources/avatar.png');
 
 const ListItems = [
   {
-    label: 'Thành viên thân thiết',
+    label: 'Loyalty Programs',
   },
   {
-    label: 'Đơn hàng của bạn',
+    label: 'Your Bookings',
   },
   {
-    label: 'Vouchers của bạn',
+    label: 'Your Vouchers',
   },
   {
-    label: 'Danh sách địa chỉ',
+    label: 'Address List',
   },
   {
-    label: 'Đăng ký nhận bản tin',
+    label: 'Signup for E-Newsletter',
   },
   {
-    label: 'Trung tâm trợ giúp',
+    label: 'Support Center',
   },
   {
-    label: 'Về Drinkies',
+    label: 'About Drinkies',
   },
   {
-    label: 'Đăng xuất',
+    label: 'Sign Out',
   },
 ];
 
@@ -68,7 +68,7 @@ class Account extends Component {
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', paddingBottom: 20 }}>
           <View style={{
-            width: 60, height: 60, backgroundColor: '#006900', borderRadius: 6, alignItems: 'center', justifyContent: 'center',
+            width: 60, height: 60, backgroundColor: '#59b58d', borderRadius: 6, alignItems: 'center', justifyContent: 'center',
           }}
           >
             <Text style={{

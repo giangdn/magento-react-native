@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   Text,
   KeyboardAvoidingView,
+  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { Icon } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import Sizes from '../../constants/Sizes';
 import { Spinner, Button } from '../common';
@@ -17,9 +19,11 @@ import {
   NAVIGATION_RESET_PASSWORD_PATH,
 } from '../../navigation/routes';
 
-const StrLogin = 'Đăng nhập';
-const StrSignin = 'Đăng ký';
-const StrForget = 'Quên mật khẩu?';
+const StrLogin = 'Login';
+const StrSignin = 'Sign Up';
+const StrForget = 'Forget password?';
+
+const drinkies = require('../../../resources/drinkies.png');
 
 class Login extends Component {
   static navigationOptions = {
@@ -53,22 +57,28 @@ class Login extends Component {
 
   renderButtons() {
     if (this.props.loading) {
-      return <Spinner style={{ marginTop: 30 }} />;
+      return <View style={styles.inputWrapper}><Spinner style={{ margin: 20 }} /></View>;
     }
 
     return (
-      <View>
-        <Button onPress={this.onLoginPress}>
-          {StrLogin}
-        </Button>
-        <Button
-          onPress={this.onSigninPress}
-          style={styles.buttonMargin}
-        >
-          {StrSignin}
-        </Button>
+      <View style={styles.inputWrapper}>
+        <TouchableOpacity onPress={this.onLoginPress} style={styles.btnLogin}>
+          <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>{StrLogin}</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={this.passwordForget} style={styles.link}>
           <Text style={styles.linkTitle}>{StrForget}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.onSigninPress}
+          style={styles.btnSignup}
+        >
+          <Text style={{
+            color: 'gray', fontWeight: 'bold', lineHeight: 22, flex: 1,
+          }}
+          >
+            {StrSignin}
+          </Text>
+          <Icon name="keyboard-arrow-right" color="#999999" />
         </TouchableOpacity>
       </View>
     );
@@ -88,7 +98,9 @@ class Login extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <View style={[styles.inputContainer, styles.offsetTop]}>
+        <Image source={drinkies} style={styles.logo} />
+        <View style={styles.inputWrapper}>
+          {this.renderMessages()}
           <TextInput
             autoCapitalize="none"
             underlineColorAndroid="transparent"
@@ -101,8 +113,6 @@ class Login extends Component {
             onChangeText={value => this.setState({ email: value })}
             onSubmitEditing={this.passwordInputFocus}
           />
-        </View>
-        <View style={styles.inputContainer}>
           <TextInput
             autoCapitalize="none"
             underlineColorAndroid="transparent"
@@ -117,7 +127,6 @@ class Login extends Component {
           />
         </View>
         {this.renderButtons()}
-        {this.renderMessages()}
         <View />
       </KeyboardAvoidingView>
     );
@@ -130,48 +139,67 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
+  logo: {
+    width: 150,
+    height: 49,
+    marginTop: 60,
+    marginBottom: 40,
+  },
+  inputWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    alignSelf: 'stretch',
+    paddingLeft: 26,
+    paddingRight: 26,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
   input: {
-    color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
+    alignSelf: 'stretch',
+    backgroundColor: '#f4f6f6',
+    borderRadius: 6,
+    marginBottom: 10,
+    padding: 15,
+  },
+  btnLogin: {
+    backgroundColor: '#59b58d',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+  },
+  btnSignup: {
+    backgroundColor: '#f4f6f6',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
   },
   inputContainer: {
     borderWidth: 1,
     borderColor: Colors.GRAY,
-    width: Sizes.WINDOW_WIDTH * 0.7,
-    height: 40,
     justifyContent: 'center',
     marginBottom: 20,
   },
-  offsetTop: {
-    marginTop: Sizes.WINDOW_HEIGHT * 0.2,
-  },
-  buttonMargin: {
-    marginTop: 20,
-  },
   error: {
-    color: 'red',
-    width: Sizes.WINDOW_WIDTH * 0.85,
+    color: '#cd0930',
     textAlign: 'center',
-    fontSize: 14,
-    marginTop: 20,
+    marginBottom: 20,
   },
   success: {
-    width: Sizes.WINDOW_WIDTH * 0.85,
     color: '#01640B',
     textAlign: 'center',
-    fontSize: 14,
     backgroundColor: '#E5EFE5',
-    padding: 5,
-    marginTop: 20,
+    marginBottom: 20,
   },
   link: {
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom: 50,
+    alignSelf: 'stretch',
   },
   linkTitle: {
-    color: '#797979',
-    textAlign: 'center',
-    fontSize: 14,
+    color: '#59b58d',
+    fontWeight: 'bold',
   },
 });
 
