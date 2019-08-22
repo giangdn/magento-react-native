@@ -6,10 +6,18 @@ import {
 } from 'react-native';
 import Sizes from '../../constants/Sizes';
 import FeaturedProductItem from './FeaturedProductItem';
+import { NAVIGATION_CATEGORY_PATH } from '../../navigation/routes';
+import NavigationService from '../../navigation/NavigationService';
 
 
 const FeaturedProducts = (props) => {
   const keyExtractor = item => item.id.toString();
+  const onRowPress = (category) => {
+    // props.setCurrentCategory({ category });
+    NavigationService.navigate(NAVIGATION_CATEGORY_PATH, {
+      title: category.name,
+    });
+  };
 
   return (
     <View style={[styles.container, props.style]}>
@@ -18,7 +26,7 @@ const FeaturedProducts = (props) => {
       }}
       >
         <Text style={styles.title}>{props.title}</Text>
-        <TouchableOpacity style={styles.link}>
+        <TouchableOpacity style={styles.link} onPress={() => onRowPress(props)}>
           <Text style={styles.linkText}>View all...</Text>
         </TouchableOpacity>
       </View>

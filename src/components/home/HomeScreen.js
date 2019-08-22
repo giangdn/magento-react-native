@@ -12,6 +12,7 @@ import {
 import { getHomeData, setCurrentProduct } from '../../actions';
 import HomeSlider from './HomeSlider';
 import FeaturedProducts from './FeaturedProducts';
+import HomeIcon from './HomeIcon';
 import NavigationService from '../../navigation/NavigationService';
 import Sizes from '../../constants/Sizes';
 
@@ -19,11 +20,11 @@ class HomeScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Drinkies',
     headerBackTitle: ' ',
-    // headerLeft: (
-    //   <MaterialHeaderButtons>
-    //     <Item title="menu" iconName="menu" onPress={navigation.getParam('toggleDrawer')} />
-    //   </MaterialHeaderButtons>
-    // ),
+    headerLeft: (
+      <MaterialHeaderButtons>
+        <Item title="menu" iconName="menu" onPress={navigation.getParam('toggleDrawer')} />
+      </MaterialHeaderButtons>
+    ),
   });
 
   static propTypes = {
@@ -94,6 +95,7 @@ class HomeScreen extends Component {
         )}
       >
         <HomeSlider slider={this.props.slider} style={{ marginBottom: 15 }} />
+        <HomeIcon />
         {this.renderFeatured()}
       </ScrollView>
     );
