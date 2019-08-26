@@ -120,7 +120,7 @@ class Cart extends Component {
     return (
       <View style={containerStyle}>
         <Image source={EmptyCart} />
-        <Text style={totals}>
+        <Text style={{ color: 'gray' }}>
           your shopping cart is empty now...
         </Text>
         <TouchableOpacity
@@ -161,13 +161,15 @@ class Cart extends Component {
           />
         </View>
         <View style={footer}>
-          {this.renderTotals()}
-          <Button
+          <View style={{ flex: 1 }}>
+            {this.renderTotals()}
+          </View>
+          <TouchableOpacity
             onPress={this.onPressAddToCheckout}
             style={buttonStyle}
           >
-            Go to Checkout
-          </Button>
+            <Text style={{ color: 'white', fontSize: 16 }}>Checkout</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -199,9 +201,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   totals: {
-    paddingTop: 15,
-    color: '#999999',
+    color: '#59b58d',
     fontSize: 16,
+    fontWeight: 'bold',
+    paddingTop: 15,
+    margin: 15,
+    marginRight: 0,
   },
   buttonTextStyle: {
     padding: 14,
@@ -210,12 +215,15 @@ const styles = StyleSheet.create({
     color: '#59b58d',
   },
   footer: {
-    padding: 14,
     flexDirection: 'row',
-    justifyContent: 'space-around',
   },
   buttonStyle: {
-    width: Sizes.WINDOW_WIDTH * 0.5,
+    backgroundColor: '#59b58d',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    margin: 16,
   },
 });
 

@@ -122,6 +122,18 @@ class Signin extends Component {
           ref={(input) => { this.passwordInput = input; }}
           onSubmitEditing={this.onCreateAccountPress}
         />
+        <TextInput
+          autoCapitalize="none"
+          underlineColorAndroid="transparent"
+          secureTextEntry
+          placeholder="Retype Password"
+          autoCorrect={false}
+          style={styles.input}
+          value={this.state.confirmPassword}
+          onChangeText={value => this.setState({ confirmPassword: value })}
+          ref={(input) => { this.rePasswordInput = input; }}
+          onSubmitEditing={this.onCreateAccountPress}
+        />
         {this.renderButtons()}
         <View style={{ padding: 10, textAlign: 'center' }}>
           <Text style={{ color: 'gray', textAlign: 'center' }}>

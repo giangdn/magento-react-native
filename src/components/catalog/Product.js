@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, ScrollView, TextInput, StyleSheet,
+  View, Text, ScrollView, TextInput, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -182,14 +182,12 @@ class Product extends Component {
   renderAddToCartButton() {
     const { cart } = this.props;
     if (cart.addToCartLoading) {
-      return <Spinner />;
+      return <Spinner style={{ margin: 16 }} />;
     }
     return (
-      <View style={styles.buttonWrap}>
-        <Button style={styles.buttonStyle} onPress={this.onPressAddToCart}>
-          Add to Cart
-        </Button>
-      </View>
+      <TouchableOpacity style={styles.buttonStyle} onPress={this.onPressAddToCart}>
+        <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>Add to Cart</Text>
+      </TouchableOpacity>
     );
   }
 
@@ -255,22 +253,39 @@ class Product extends Component {
     return (
       <ScrollView style={styles.container}>
         {this.renderProductMedia()}
-        <Text style={styles.textStyle}>{this.props.product.name}</Text>
-        <Text style={styles.textStyle}>
-          {`${this.props.currencySymbol}${this.renderPrice()}`}
-        </Text>
-        <Text style={styles.textStyle}>Qty</Text>
-        <TextInput
-          autoCorrect={false}
-          style={styles.textStyle}
-          keyboardType="numeric"
-          value={`${this.props.qty}`}
-          onChangeText={qty => this.props.updateProductQtyInput(qty)}
-        />
-        {this.renderOptions()}
+        <View style={{
+          borderTopWidth: 1, borderTopColor: '#dddddd', padding: 8, flexDirection: 'column', alignItems: 'flex-start',
+        }}
+        >
+          <Text style={styles.textStyle} numberOfLines={2}>{this.props.product.name}</Text>
+          <Text style={styles.priceStyle}>
+            {`${this.props.currencySymbol}${this.renderPrice()}`}
+          </Text>
+        </View>
+        <View style={{ flex: 3, flexDirection: 'row', padding: 8 }}>
+          <TextInput
+            autoCorrect={false}
+            style={styles.quantity}
+            keyboardType="numeric"
+            placeholder="Quantity"
+            value={`${this.props.qty}`}
+            onChangeText={qty => this.props.updateProductQtyInput(qty)}
+          />
+          <View style={{ flex: 3, flexDirection: 'row' }}>
+            {this.renderOptions()}
+          </View>
+        </View>
+        {(typeof this.props.cart.errorMessage !== 'undefined' && this.props.cart.errorMessage.length > 0) && <Text style={styles.errorStyle}>{this.props.cart.errorMessage}</Text>}
         {this.renderAddToCartButton()}
-        <Text style={styles.errorStyle}>{this.props.cart.errorMessage}</Text>
-        {this.renderDescription()}
+        <View style={{ paddingTop: 16, borderTopColor: '#ddd', borderTopWidth: 1 }}>
+          <Text style={{
+            fontSize: 20, margin: 16, marginBottom: 8, fontWeight: '300',
+          }}
+          >
+            DESCRIPTIONS
+          </Text>
+          {this.renderDescription()}
+        </View>
       </ScrollView>
     );
   }
@@ -282,14 +297,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   textStyle: {
+    fontSize: 20,
     padding: 10,
-    textAlign: 'center',
+    fontWeight: '700',
+    color: '#455154',
+  },
+  priceStyle: {
+    fontSize: 24,
+    padding: 10,
     fontWeight: 'bold',
+    color: '#59b58d',
+  },
+  quantity: {
+    marginLeft: 8,
+    marginRight: 8,
+    backgroundColor: '#f4f6f6',
+    borderRadius: 6,
+    padding: 15,
+    height: 45,
+    fontSize: 18,
+    color: 'gray',
+    flex: 1,
   },
   descriptionStyle: {
     padding: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 16,
+    paddingRight: 16,
     fontWeight: '300',
     lineHeight: 25,
   },
@@ -302,12 +335,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#333',
   },
-  buttonWrap: {
-    alignItems: 'center',
-  },
   buttonStyle: {
-    marginTop: 10,
-    width: Sizes.WINDOW_WIDTH * 0.9,
+    backgroundColor: '#59b58d',
+    borderRadius: 6,
+    padding: 15,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    margin: 16,
   },
 });
 

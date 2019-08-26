@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Dialog from 'react-native-dialog';
 import { Button } from '../common';
 import { logout, currentCustomer } from '../../actions';
 import { NAVIGATION_ORDERS_PATH, NAVIGATION_ADDRESS_SCREEN_PATH } from '../../navigation/routes';
@@ -48,6 +49,25 @@ class Account extends Component {
     title: StrAccont,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showLogoutConfirm: false,
+    };
+  }
+
+  toggleLogoutConfirm() {
+    this.setState({
+      showLogoutConfirm: !this.state.showLogoutConfirm,
+    });
+  }
+
+  doLogout() {
+    this.toggleLogoutConfirm();
+    this.props.logout();
+  }
+
   componentDidMount() {
     if (!this.props.customer) {
       this.props.currentCustomer();
@@ -55,8 +75,23 @@ class Account extends Component {
   }
 
   onLogoutPress = () => {
-    this.props.logout();
+    this.toggleLogoutConfirm();
   };
+
+  renderLogoutConfirm() {
+    return (
+      <View>
+        <Dialog.Container visible={this.state.showLogoutConfirm}>
+          <Dialog.Title>Sign Out?</Dialog.Title>
+          <Dialog.Description>
+            Do you want to sign out? Press Yes to confirm or Close to hide this dialog
+          </Dialog.Description>
+          <Dialog.Button label="Yes" onPress={() => this.doLogout()} />
+          <Dialog.Button label="Close" onPress={() => this.toggleLogoutConfirm()} />
+        </Dialog.Container>
+      </View>
+    );
+  }
 
   renderCustomerData() {
     if (!this.props.customer) {
@@ -134,6 +169,7 @@ class Account extends Component {
     return (
       <View style={styles.container}>
         {this.renderCustomerData()}
+        {this.renderLogoutConfirm()}
       </View>
     );
   }

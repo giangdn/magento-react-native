@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, Text, Image, TouchableOpacity, Alert,
+  View, Text, Image, TouchableOpacity, Alert, TextInput,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -44,42 +44,55 @@ class CartListItem extends Component {
       containerStyle,
       textStyle,
       infoStyle,
+      priceStyle,
+      container,
     } = styles;
     const imageUri = this.image();
+    const attrs = this.props.item.sku.split('-');
     return (
-      <View style={containerStyle}>
-        <Image style={imageStyle} resizeMode="contain" source={{ uri: imageUri }} />
-        <View style={infoStyle}>
-          <Text style={textStyle}>{this.props.item.name}</Text>
-          <Text style={textStyle}>
-            {magento.storeConfig.default_display_currency_code}
-            {' '}
-            {this.props.item.price}
-          </Text>
-          <Text style={textStyle}>Qty: {this.props.item.qty}</Text>
+      <View style={container}>
+        <View style={containerStyle}>
+          <Image style={imageStyle} resizeMode="contain" source={{ uri: imageUri }} />
+          <View style={infoStyle}>
+            <Text style={textStyle} numberOfLines={1} ellipsizeMode="tail">{this.props.item.name}</Text>
+            <Text style={priceStyle}>
+              {this.props.item.currencySymbol}
+              {' '}
+              {this.props.item.price}
+              {' '}
+              <Text style={{ fontSize: 14, textDecorationLine: 'line-through', opacity: 0.8 }}>{this.props.item.price + 12}</Text>
+            </Text>
+          </View>
         </View>
-        <View style={styles.removeContainer}>
-          {this.props.cart.removingItemId === this.props.item.item_id
-            ? (
-              <View style={styles.spinnerWrapper}>
-                <Spinner />
-              </View>
-            )
-            : (
-              <TouchableOpacity
-                style={styles.iconStyle}
-                onPress={this.onPressRemoveItem}
-              >
-                <View style={styles.iconWrapper}>
-                  <Icon
-                    name="md-trash"
-                    type="ionicon"
-                  />
+        <View style={{ flexDirection: 'row', padding: 8, paddingTop: 0 }}>
+          <View style={{ flex: 2, flexDirection: 'row' }}>
+            <TextInput value={`${this.props.item.qty}`} style={styles.quantity} />
+            <TextInput value={attrs[1]} style={styles.quantity} />
+            <TextInput value={attrs[2]} style={styles.quantity} />
+          </View>
+          <View style={styles.removeContainer}>
+            {this.props.cart.removingItemId === this.props.item.item_id
+              ? (
+                <View style={styles.spinnerWrapper}>
+                  <Spinner />
                 </View>
+              )
+              : (
+                <TouchableOpacity
+                  style={styles.iconStyle}
+                  onPress={this.onPressRemoveItem}
+                >
+                  <View style={styles.iconWrapper}>
+                    <Icon
+                      name="trash"
+                      type="feather"
+                    />
+                  </View>
 
-              </TouchableOpacity>
-            )
+                </TouchableOpacity>
+              )
             }
+          </View>
         </View>
       </View>
     );
@@ -87,12 +100,24 @@ class CartListItem extends Component {
 }
 
 const styles = {
-  containerStyle: {
-    flexDirection: 'row',
-    flex: 1,
+  container: {
     borderColor: '#ddd',
     borderBottomWidth: 1,
     backgroundColor: '#fff',
+  },
+  containerStyle: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  quantity: {
+    margin: 3,
+    backgroundColor: '#f4f6f6',
+    borderRadius: 6,
+    padding: 10,
+    height: 35,
+    fontSize: 16,
+    color: 'gray',
+    flex: 1,
   },
   infoStyle: {
     flexDirection: 'column',
@@ -100,25 +125,38 @@ const styles = {
     flex: 2,
   },
   textStyle: {
-    flex: 1,
-    padding: 10,
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: '500',
+    opacity: 0.8,
+  },
+  priceStyle: {
+    paddingTop: 10,
+    fontSize: 18,
+    fontWeight: '600',
   },
   imageStyle: {
-    height: 100,
-    flex: 1,
+    height: 80,
     margin: 10,
+    borderWidth: 3,
+    borderColor: '#f4f6f6',
+    borderRadius: 6,
+    overflow: 'hidden',
     width: null,
+    flex: 1,
   },
   iconWrapper: {
     alignSelf: 'flex-end',
-    marginRight: 20,
+    backgroundColor: '#f4f6f6',
+    padding: 8,
+    borderRadius: 20,
   },
   removeContainer: {
     flexDirection: 'column',
-    justifyContent: 'center',
-    minWidth: 50,
+    flex: 1,
   },
   spinnerWrapper: {
+    alignItems: 'flex-end',
     marginRight: 10,
   },
 };

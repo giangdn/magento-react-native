@@ -160,7 +160,7 @@ const MainAppNavigator = createBottomTabNavigator(
     [NAVIGATION_CART_PATH]: {
       screen: CartStack,
       navigationOptions: () => ({
-        tabBarIcon: ({ tintColor }) => <Icon name="shopping-cart" type="feather" color={tintColor} />,
+        tabBarIcon: ({ tintColor }) => <CartBadge color={tintColor} />,
         tabBarLabel: 'My Cart',
       }),
     },

@@ -16,15 +16,18 @@ const FeaturedProductItem = ({
       style={styles.containerStyle}
       onPress={() => { onPress(props); }}
     >
-      <Image
-        style={styles.imageStyle}
-        resizeMode="contain"
-        source={{ uri: getProductThumbnailFromAttribute(props) }}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.imageStyle}
+          resizeMode="contain"
+          source={{ uri: getProductThumbnailFromAttribute(props) }}
+        />
+      </View>
       <View style={styles.infoStyle}>
-        <Text style={styles.textStyle} ellipsizeMode="tail" numberOfLines={2}>{props.name}</Text>
+        <Text style={styles.textStyle} ellipsizeMode="tail" numberOfLines={1}>{props.name}</Text>
+        {console.log(props)}
         <Text style={styles.priceStyle}>
-          {`${currencySymbol} ${props.price}`}
+          {`${currencySymbol + props.price}`}
         </Text>
       </View>
     </TouchableOpacity>
@@ -45,41 +48,44 @@ FeaturedProductItem.defaultProps = {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
-    width: (Sizes.WINDOW_WIDTH - 10) / 2,
+    margin: 8,
+    width: (Sizes.WINDOW_WIDTH - 48) / 2,
   },
   containerStyle: {
     flexDirection: 'column',
     flex: 1,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#fff',
-    borderRadius: 4,
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
+    margin: 8,
   },
   infoStyle: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    width: (Sizes.WINDOW_WIDTH - 48) / 2,
   },
   textStyle: {
-    justifyContent: 'center',
-    textAlign: 'center',
-    flexDirection: 'column',
     marginTop: 10,
-    fontSize: 16,
-    fontWeight: '200',
-    color: '#555',
+    fontSize: 15,
+    fontWeight: '500',
+    opacity: 0.8,
   },
   priceStyle: {
-    fontSize: 14,
-    fontWeight: '200',
-    textAlign: 'center',
+    marginTop: 5,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#59b58d',
   },
   imageStyle: {
-    height: 80,
-    width: 80,
+    height: 140,
+    width: 140,
+  },
+  imageContainer: {
+    flex: 1,
+    borderWidth: 3,
+    borderColor: '#f4f6f6',
+    borderRadius: 6,
+    overflow: 'hidden',
+    width: (Sizes.WINDOW_WIDTH - 48) / 2,
+    height: 142,
+    alignItems: 'center',
   },
 });
 

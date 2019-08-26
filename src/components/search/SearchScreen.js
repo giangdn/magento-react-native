@@ -75,16 +75,16 @@ class SearchScreen extends Component {
 
   renderContent = () => (
     <ProductList
-        products={this.props.products}
-        navigation={this.props.navigation}
-        onEndReached={this.onEndReached}
-        canLoadMoreContent={this.props.canLoadMoreContent}
-        searchIndicator
-        onRowPress={this.onRowPress}
-        gridColumnsValue={this.state.gridColumnsValue}
-        performSort={this.performSort}
-        currencySymbol={this.props.currencySymbol}
-      />
+      products={this.props.products}
+      navigation={this.props.navigation}
+      onEndReached={this.onEndReached}
+      canLoadMoreContent={this.props.canLoadMoreContent}
+      searchIndicator
+      onRowPress={this.onRowPress}
+      gridColumnsValue={this.state.gridColumnsValue}
+      performSort={this.performSort}
+      currencySymbol={this.props.currencySymbol}
+    />
   );
 
   render() {
@@ -99,8 +99,8 @@ class SearchScreen extends Component {
             onChangeText={this.updateSearch}
             value={input}
             containerStyle={searchStyle}
-            inputStyle={{ backgroundColor: '#DAE2EA' }}
-            inputContainerStyle={{ backgroundColor: '#DAE2EA' }}
+            inputStyle={{ backgroundColor: 'transparent' }}
+            inputContainerStyle={{ backgroundColor: 'transparent' }}
             showLoading={this.props.loadingMore}
           />
         </View>
@@ -124,12 +124,12 @@ const styles = {
   },
   searchStyle: {
     marginTop: 5,
-    backgroundColor: '#DAE2EA',
+    backgroundColor: '#f4f6f6',
     borderRadius: 25,
     alignSelf: 'center',
     borderBottomWidth: 0,
     borderTopWidth: 0,
-    height: 55,
+    height: 50,
     width: Sizes.WINDOW_WIDTH * 0.9,
   },
   notFoundTextWrap: {

@@ -32,7 +32,7 @@ const FeaturedProducts = (props) => {
       </View>
       <FlatList
         data={props.products.items}
-        style={{ paddingLeft: 5, paddingRight: 5 }}
+        style={{ paddingLeft: 8, paddingRight: 8 }}
         numColumns={2}
         keyExtractor={keyExtractor}
         renderItem={({ item }) => <FeaturedProductItem {...item} currencySymbol={props.currencySymbol} onPress={props.onPress} />}
